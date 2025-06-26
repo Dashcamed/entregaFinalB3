@@ -52,7 +52,7 @@ export default class UserService {
     }
   };
 
-  updateUser = async (id, user) => {
+  updateOneUser = async (id, user) => {
     try {
       const updatedUser = await userRepository.updateOneUser(id, user);
       return updatedUser;

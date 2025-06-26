@@ -9,7 +9,9 @@ const ExtractJwt = jwt.ExtractJwt;
 
 const cookieExtractor = (req) => {
   let token = null;
-  if (req && req.cookies) {
+  if (req && req.signedCookies && req.signedCookies["token"]) {
+    token = req.signedCookies["token"];
+  } else if (req && req.cookies && req.cookies["token"]) {
     token = req.cookies["token"];
   }
   return token;

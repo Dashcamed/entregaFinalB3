@@ -13,6 +13,59 @@ export const getAllUsers = async (req, res) => {
   }
 };
 
+export const getUserById = async (req, res) => {
+  try {
+    const { uid } = req.params;
+    const user = await userServices.getUserById(uid);
+    res.status(200).send({ status: "success", payload: user });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(400)
+      .send({ status: "error", error: "Error al obtener usuario" });
+  }
+};
+
+export const updateOneUser = async (req, res) => {
+  try {
+    const { uid } = req.params;
+    const user = await userServices.getUserById(uid);
+    if (!user) {
+      return res.status(404).json({
+        status: "error",
+        error: "Usuario no encontrado",
+      });
+    }
+    const updatedUser = await userServices.updateOneUser(uid, req.body);
+    res.status(200).send({ status: "success", payload: updatedUser });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(400)
+      .send({ status: "error", error: "Error al actualizar usuario" });
+  }
+};
+
+export const deleteUser = async (req, res) => {
+  try {
+    const { uid } = req.params;
+    const user = await userServices.getUserById(uid);
+    if (!user) {
+      return res.status(404).json({
+        status: "error",
+        error: "Usuario no encontrado",
+      });
+    }
+    const deletedUser = await userServices.deleteUser(uid);
+    res.status(200).send({ status: "success", payload: deletedUser });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(400)
+      .send({ status: "error", error: "Error al eliminar usuario" });
+  }
+};
+
 export const addDocument = async (req, res) => {
   try {
     const { uid } = req.params;

@@ -14,6 +14,19 @@ export const getAllPets = async (req, res) => {
   }
 };
 
+export const getPetById = async (req, res) => {
+  try {
+    const { uid } = req.params;
+    const pet = await petServices.getPetById(uid);
+    res.status(200).send({ status: "success", payload: pet });
+  } catch (error) {
+    req.logger.error(error);
+    res
+      .status(400)
+      .send({ status: "error", error: "Error al obtener mascota" });
+  }
+};
+
 export const addImage = async (req, res) => {
   try {
     const { uid } = req.params;
@@ -63,6 +76,28 @@ export const addImage = async (req, res) => {
   }
 };
 
+export const createPet = async (req, res) => {
+  try {
+    const pet = {
+      name: req.body.name,
+      specie: req.body.specie,
+      birthDate: req.body.birthDate,
+      adopted: req.body.adopted || false,
+      owner: req.body.owner || null,
+    };
+    const result = await petServices.createPet(pet);
+    res.status(201).json({
+      status: "success",
+      payload: result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "error",
+      error: error.message || "Error al registrar mascota",
+    });
+  }
+};
+
 export const createPetWithImage = async (req, res) => {
   try {
     if (!req.file) {
@@ -96,5 +131,45 @@ export const createPetWithImage = async (req, res) => {
       status: "error",
       error: error.message || "Error al registrar mascota",
     });
+  }
+};
+
+export const updateOnePet = async (req, res) => {
+  try {
+    const { uid } = req.params;
+    const pet = await petServices.getPetById(uid);
+    if (!pet) {
+      return res.status(404).json({
+        status: "error",
+        error: "Mascota no encontrada",
+      });
+    }
+    const updatedPet = await petServices.updatePet(uid, req.body);
+    res.status(200).send({ status: "success", payload: updatedPet });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(400)
+      .send({ status: "error", error: "Error al actualizar mascota" });
+  }
+};
+
+export const deleteOnePet = async (req, res) => {
+  try {
+    const { uid } = req.params;
+    const pet = await petServices.getPetById(uid);
+    if (!pet) {
+      return res.status(404).json({
+        status: "error",
+        error: "Mascota no encontrada",
+      });
+    }
+    const deletedPet = await petServices.deletePet(uid);
+    res.status(200).send({ status: "success", payload: deletedPet });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(400)
+      .send({ status: "error", error: "Error al eliminar mascota" });
   }
 };

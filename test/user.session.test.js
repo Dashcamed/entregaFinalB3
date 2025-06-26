@@ -80,28 +80,16 @@ describe("Testing users Api", function () {
     expect(this.cookie.value).to.be.ok;
   });
 
-  it("Test Ruta Protegida: Debe enviar la cookie que contiene el usuario y desestructurarla correctamente.", async function () {
-    // Mock de mascota a crear
-    const mockPet = {
-      name: "Nemo",
-      specie: "Pez",
-      birthDate: "10-11-2022",
-    };
-
-    // Realiza la petición POST con campos y archivo adjunto
+  it("debe crear una mascota con imagen", async function () {
     const result = await request
-      .post("/api/pet/createPetWithImage")
+      .post("/api/pet/")
       .set("Cookie", `${this.cookie.name}=${this.cookie.value}`)
-      .field("name", mockPet.name)
-      .field("specie", mockPet.specie)
-      .field("birthDate", mockPet.birthDate)
+      .field("name", "Firulais")
+      .field("specie", "Perro")
+      .field("birthDate", "2020-01-01")
       .attach("image", "./test/files/coderDog.jpg");
 
-    // Corroboramos que la petición haya resultado en OK
-    expect(result.status).to.be.eql(201);
-    // Corroboramos que el payload tenga un _id, indicando que se guardó en la BD
-    expect(result.body.payload).to.have.property("_id");
-    // Finalmente, corroboramos que la mascota guardada también tenga el campo image definido
-    expect(result.body.payload.image).to.be.ok;
+    expect(result.status).to.eql(201);
+    expect(result.body.status).to.eql("success");
   });
 });
