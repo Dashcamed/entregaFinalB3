@@ -15,10 +15,10 @@ export default class UserRouter extends Router {
   }
 
   init() {
-    this.get("/all", ["ADMIN"], getAllUsers);
-    this.get("/:uid", ["ADMIN", "USER"], getUserById);
-    this.put("/:uid", ["ADMIN", "USER"], updateOneUser);
-    this.delete("/:uid", ["ADMIN", "USER"], deleteUser);
+    this.get("/all", ["USER", "ADMIN"], getAllUsers);
+    this.get("/:uid", ["USER", "ADMIN"], getUserById);
+    this.put("/:uid", ["USER", "ADMIN"], updateOneUser);
+    this.delete("/:uid", ["USER", "ADMIN"], deleteUser);
     this.post(
       "/:uid/documents",
       ["USER", "ADMIN"],

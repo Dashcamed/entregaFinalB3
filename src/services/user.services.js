@@ -34,9 +34,9 @@ export default class UserService {
     }
   };
 
-  getUserById = async (id) => {
+  getUserById = async (uid) => {
     try {
-      const user = await userRepository.getUserById(id);
+      const user = await userRepository.getUserById(uid);
       return user;
     } catch (error) {
       throw error;
@@ -52,18 +52,18 @@ export default class UserService {
     }
   };
 
-  updateOneUser = async (id, user) => {
+  updateOneUser = async (uid, user) => {
     try {
-      const updatedUser = await userRepository.updateOneUser(id, user);
+      const updatedUser = await userRepository.updateOneUser(uid, user);
       return updatedUser;
     } catch (error) {
       throw error;
     }
   };
 
-  deleteUser = async (id) => {
+  deleteUser = async (uid) => {
     try {
-      const deletedUser = await userRepository.deleteOneUser(id);
+      const deletedUser = await userRepository.deleteOneUser(uid);
       return deletedUser;
     } catch (error) {
       throw error;

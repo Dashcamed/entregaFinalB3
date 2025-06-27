@@ -15,7 +15,7 @@ const MONGO_URI =
 // const request = supertest("http://localhost:8080");
 const request = supertest(app);
 
-describe("Testing users Api", function () {
+describe("Testing adoption Api", function () {
   // Aumenta el timeout por si la conexión es lenta
   this.timeout(6000);
 
@@ -64,17 +64,13 @@ describe("Testing users Api", function () {
     await mongoose.connection.close();
   });
 
-  // Test 01 - Registro de un User
-  it("Test Registro Usuario: Debe poder registrar correctamente un usuario", async function () {
-    const { statusCode } = await request
-      .post("/api/auth/register")
-      .send(this.mockUser);
-
-    expect(statusCode).to.eql(201);
+  it("debe registrar un usuario", async function () {
+    const result = await request.post("/api/auth/register").send(this.mockUser);
+    expect(result.status).to.eql(201);
+    expect(result.body.status).to.eql("success");
   });
 
-  // Test 02 - Login de un User
-  it("Test Login Usuario: Debe poder hacer login correctamente con el usuario registrado previamente y obtener la cookie", async function () {
+  it("debe iniciar sesión con un usuario", async function () {
     const mockLogin = {
       email: this.mockUser.email,
       password: this.mockUser.password,
@@ -105,5 +101,35 @@ describe("Testing users Api", function () {
 
     expect(result.status).to.eql(201);
     expect(result.body.status).to.eql("success");
+  });
+
+  it("debe traer las mascotas y seleccionar una para adoptar", async function () {
+    const result = await request
+      .get("/api/pet/all")
+      .set("Cookie", `${this.cookie.name}=${this.cookie.value}`);
+    expect(result.status).to.eql(200);
+    expect(result.body.status).to.eql("success");
+    this.mockPet._id = result.body.payload[0]._id;
+    console.log(this.mockPet._id);
+  });
+
+  it("debe traer todos los usuarios", async function () {
+    const result = await request
+      .get("/api/user/all")
+      .set("Cookie", `${this.cookie.name}=${this.cookie.value}`);
+    expect(result.status).to.eql(200);
+    expect(result.body.status).to.eql("success");
+    this.mockUser._id = result.body.payload[0]._id;
+    console.log(this.mockUser._id);
+  });
+
+  it("debe adoptar una mascota", async function () {
+    const result = await request
+      .post(
+        `/api/adoption/createAdoption/${this.mockUser._id}/${this.mockPet._id}`
+      )
+      .set("Cookie", `${this.cookie.name}=${this.cookie.value}`);
+    expect(result.status).to.eql(201);
+    expect(result.body).to.eql("Adopcion exitosa");
   });
 });

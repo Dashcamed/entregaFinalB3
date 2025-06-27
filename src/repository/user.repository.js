@@ -32,9 +32,9 @@ export default class UserRepository {
     }
   }
 
-  async getUserById(id) {
+  async getUserById(uid) {
     try {
-      const user = await userMongo.getById(id);
+      const user = await userMongo.getById(uid);
       return user;
     } catch (error) {
       throw error;
@@ -50,18 +50,18 @@ export default class UserRepository {
     }
   };
 
-  updateOneUser = async (id, user) => {
+  updateOneUser = async (uid, user) => {
     try {
-      const updatedUser = await userMongo.update(id, user);
+      const updatedUser = await userMongo.update(uid, user);
       return updatedUser;
     } catch (error) {
       throw error;
     }
   };
 
-  deleteOneUser = async (id) => {
+  deleteOneUser = async (uid) => {
     try {
-      const deletedUser = await userMongo.delete(id);
+      const deletedUser = await userMongo.delete(uid);
       return deletedUser;
     } catch (error) {
       throw error;

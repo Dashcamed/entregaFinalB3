@@ -8,7 +8,8 @@
     "prod": "node --watch ./src/server.js --mode prod",
     "test": "mocha ./test/**/*.test.js --exit",
     "test:user": "mocha ./test/user.session.test.js",
-    "test:pet": "mocha ./test/pet.test.js"
+    "test:pet": "mocha ./test/pet.test.js",
+    "test:adoption": "mocha ./test/adoption.test.js"
   },
   "keywords": [],
   "author": "",

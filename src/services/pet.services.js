@@ -14,15 +14,6 @@ export default class PetServices {
     }
   }
 
-  async createPet(pet) {
-    try {
-      const newPet = await petRepository.createPet(pet);
-      return newPet;
-    } catch (error) {
-      throw error;
-    }
-  }
-
   async createPetWithImage(pet) {
     try {
       const newPet = await petRepository.createPet(pet);
@@ -50,27 +41,27 @@ export default class PetServices {
     }
   }
 
-  async getPetById(id) {
+  async getPetById(pid) {
     try {
-      const pet = await petRepository.getPetById(id);
+      const pet = await petRepository.getPetById(pid);
       return pet;
     } catch (error) {
       throw error;
     }
   }
 
-  async updatePet(id, pet) {
+  async updateOnePet(pid, pet) {
     try {
-      const updatedPet = await petRepository.updatePet(id, pet);
+      const updatedPet = await petRepository.updatePet(pid, pet);
       return updatedPet;
     } catch (error) {
       throw error;
     }
   }
 
-  async deletePet(id) {
+  async deletePet(pid) {
     try {
-      const deletedPet = await petRepository.deletePet(id);
+      const deletedPet = await petRepository.deletePet(pid);
       return deletedPet;
     } catch (error) {
       throw error;

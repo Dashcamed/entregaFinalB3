@@ -39,27 +39,27 @@ export default class UserMongo {
     }
   };
 
-  async getById(id) {
+  async getById(uid) {
     try {
-      const user = await userModel.findById(id);
+      const user = await userModel.findById(uid);
       return user;
     } catch (error) {
       throw error;
     }
   }
 
-  async update(id, user) {
+  async update(uid, user) {
     try {
-      const updatedUser = await userModel.findByIdAndUpdate(id, user);
+      const updatedUser = await userModel.findByIdAndUpdate(uid, user);
       return updatedUser;
     } catch (error) {
       throw error;
     }
   }
 
-  async delete(id) {
+  async delete(uid) {
     try {
-      const deletedUser = await userModel.findByIdAndDelete(id);
+      const deletedUser = await userModel.findByIdAndDelete(uid);
       return deletedUser;
     } catch (error) {
       throw error;

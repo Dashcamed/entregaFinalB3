@@ -36,6 +36,14 @@ describe("Testing pets Api", function () {
       owner: null,
       image: [],
     };
+    this.mockPet2 = {
+      name: "Ariel",
+      specie: "Gato",
+      birthDate: "2022-01-01",
+      adopted: false,
+      owner: null,
+      image: [],
+    };
 
     // Usuario de prueba
     this.mockUser = {
@@ -51,6 +59,7 @@ describe("Testing pets Api", function () {
     // Limpia la colección de mascotas después de correr los tests
     await mongoose.connection.collection("pets").deleteMany({
       name: this.mockPet.name,
+      name: this.mockPet2.name,
     });
 
     // Limpia la colección de usuarios después de correr los tests
@@ -96,9 +105,9 @@ describe("Testing pets Api", function () {
     const result = await request
       .post("/api/pet/")
       .set("Cookie", `${this.cookie.name}=${this.cookie.value}`)
-      .field("name", "Rex")
-      .field("specie", "Perro")
-      .field("birthDate", "2020-01-01")
+      .field("name", this.mockPet.name)
+      .field("specie", this.mockPet.specie)
+      .field("birthDate", this.mockPet.birthDate)
       .attach("image", "./test/files/coderDog.jpg");
 
     expect(result.status).to.eql(201);
@@ -109,9 +118,9 @@ describe("Testing pets Api", function () {
     const result = await request
       .post("/api/pet/")
       .set("Cookie", `${this.cookie.name}=${this.cookie.value}`)
-      .field("name", "Ariel")
-      .field("specie", "Gato")
-      .field("birthDate", "2022-01-01");
+      .field("name", this.mockPet2.name)
+      .field("specie", this.mockPet2.specie)
+      .field("birthDate", this.mockPet2.birthDate);
 
     expect(result.status).to.eql(201);
     expect(result.body.status).to.eql("success");

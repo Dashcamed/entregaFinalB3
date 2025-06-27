@@ -30,27 +30,27 @@ export default class PetMongo {
     }
   }
 
-  async getById(id) {
+  async getById(pid) {
     try {
-      const pet = await petModel.findById(id);
+      const pet = await petModel.findById(pid);
       return pet;
     } catch (error) {
       throw error;
     }
   }
 
-  async update(id, pet) {
+  async update(pid, pet) {
     try {
-      const updatedPet = await petModel.findByIdAndUpdate(id, pet);
+      const updatedPet = await petModel.findByIdAndUpdate(pid, pet);
       return updatedPet;
     } catch (error) {
       throw error;
     }
   }
 
-  async delete(id) {
+  async delete(pid) {
     try {
-      const deletedPet = await petModel.findByIdAndDelete(id);
+      const deletedPet = await petModel.findByIdAndDelete(pid);
       return deletedPet;
     } catch (error) {
       throw error;

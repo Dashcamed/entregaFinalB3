@@ -32,27 +32,27 @@ export default class PetRepository {
     }
   }
 
-  async getPetById(id) {
+  async getPetById(pid) {
     try {
-      const pet = await petMongo.getById(id);
+      const pet = await petMongo.getById(pid);
       return pet;
     } catch (error) {
       throw error;
     }
   }
 
-  async updatePet(id, pet) {
+  async updatePet(pid, pet) {
     try {
-      const updatedPet = await petMongo.update(id, pet);
+      const updatedPet = await petMongo.update(pid, pet);
       return updatedPet;
     } catch (error) {
       throw error;
     }
   }
 
-  async deletePet(id) {
+  async deletePet(pid) {
     try {
-      const deletedPet = await petMongo.delete(id);
+      const deletedPet = await petMongo.delete(pid);
       return deletedPet;
     } catch (error) {
       throw error;

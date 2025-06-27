@@ -1,4 +1,4 @@
-import PetServices from "../services/pets.services.js";
+import PetServices from "../services/pet.services.js";
 
 const petServices = new PetServices();
 
