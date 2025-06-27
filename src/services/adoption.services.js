@@ -6,30 +6,50 @@ export default class AdoptionService {
   constructor() {}
 
   async createAdoption(adoption) {
-    const newAdoption = await adoptionRepository.createAdoption(adoption);
-    return newAdoption;
+    try {
+      const newAdoption = await adoptionRepository.createAdoption(adoption);
+      return newAdoption;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async getAllAdoptions() {
-    const adoptions = await adoptionRepository.getAllAdoptions();
-    return adoptions;
+    try {
+      const adoptions = await adoptionRepository.getAllAdoptions();
+      return adoptions;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async getOneAdoption(aid) {
-    const adoption = await adoptionRepository.getOneAdoption(aid);
-    return adoption;
+    try {
+      const adoption = await adoptionRepository.getOneAdoption(aid);
+      return adoption;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async updateOneAdoption(aid, adoption) {
-    const updatedAdoption = await adoptionRepository.updateOneAdoption(
-      aid,
-      adoption
-    );
-    return updatedAdoption;
+    try {
+      const updatedAdoption = await adoptionRepository.updateOneAdoption(
+        aid,
+        adoption
+      );
+      return updatedAdoption;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async deleteOneAdoption(aid) {
-    const deletedAdoption = await adoptionRepository.deleteOneAdoption(aid);
-    return deletedAdoption;
+    try {
+      const deletedAdoption = await adoptionRepository.deleteOneAdoption(aid);
+      return deletedAdoption;
+    } catch (error) {
+      throw error;
+    }
   }
 }

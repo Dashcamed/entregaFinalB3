@@ -6,27 +6,47 @@ export default class AdoptionRepository {
   constructor() {}
 
   async createAdoption(adoption) {
-    const newAdoption = await adoptionMongo.create(adoption);
-    return newAdoption;
+    try {
+      const newAdoption = await adoptionMongo.create(adoption);
+      return newAdoption;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async getAllAdoptions() {
-    const adoptions = await adoptionMongo.getAll();
-    return adoptions;
+    try {
+      const adoptions = await adoptionMongo.getAll();
+      return adoptions;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async getOneAdoption(aid) {
-    const adoption = await adoptionMongo.getOne(aid);
-    return adoption;
+    try {
+      const adoption = await adoptionMongo.getOne(aid);
+      return adoption;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async updateOneAdoption(aid, adoption) {
-    const updatedAdoption = await adoptionMongo.updateOne(aid, adoption);
-    return updatedAdoption;
+    try {
+      const updatedAdoption = await adoptionMongo.updateOne(aid, adoption);
+      return updatedAdoption;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async deleteOneAdoption(aid) {
-    const deletedAdoption = await adoptionMongo.deleteOne(aid);
-    return deletedAdoption;
+    try {
+      const deletedAdoption = await adoptionMongo.deleteOne(aid);
+      return deletedAdoption;
+    } catch (error) {
+      throw error;
+    }
   }
 }

@@ -4,6 +4,7 @@ import MockRouter from "./routes/mock.router.js";
 import UserRouter from "./routes/user.router.js";
 import PetRouter from "./routes/pet.router.js";
 import SessionRouter from "./routes/session.router.js";
+import AdoptionRouter from "./routes/adoption.router.js";
 import { middLogg } from "./config/logger.js";
 import cookieParser from "cookie-parser";
 import passport from "passport";
@@ -35,6 +36,7 @@ app.use("/api/mock", new MockRouter().getRouter());
 app.use("/api/user", new UserRouter().getRouter());
 app.use("/api/pet", new PetRouter().getRouter());
 app.use("/api/auth", new SessionRouter().getRouter());
+app.use("/api/adoption", new AdoptionRouter().getRouter());
 
 //Passport
 initializePassport();

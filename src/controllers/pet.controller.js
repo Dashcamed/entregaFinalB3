@@ -59,7 +59,7 @@ export const addImage = async (req, res) => {
 
     await pet.save();
 
-    res.status(200).json({
+    res.status(201).json({
       status: "success",
       message: "Archivo subido correctamente",
       image: {
@@ -68,7 +68,7 @@ export const addImage = async (req, res) => {
     });
   } catch (error) {
     req.logger.error(error);
-    res.status(500).json({
+    res.status(400).json({
       status: "error",
       error: "Error al procesar el archivo",
       details: error instanceof Error ? error.message : "Error desconocido",
@@ -82,8 +82,6 @@ export const createPet = async (req, res) => {
       name: req.body.name,
       specie: req.body.specie,
       birthDate: req.body.birthDate,
-      adopted: req.body.adopted || false,
-      owner: req.body.owner || null,
     };
     const result = await petServices.createPet(pet);
     res.status(201).json({

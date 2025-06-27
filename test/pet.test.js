@@ -15,11 +15,8 @@ const MONGO_URI =
 // const request = supertest("http://localhost:8080");
 const request = supertest(app);
 
-describe("Testing users Api", function () {
-  // Aumenta el timeout por si la conexión es lenta
+describe("Testing pets Api", function () {
   this.timeout(6000);
-
-  // Variables para usar entre tests
   before(async function () {
     // Conexión a MongoDB antes de correr los tests
     await mongoose
@@ -30,6 +27,16 @@ describe("Testing users Api", function () {
       .catch((err) => {
         console.error("Error connecting to MongoDB for testing:", err);
       });
+    // mascota de prueba
+    this.mockPet = {
+      name: "Firulais",
+      specie: "Perro",
+      birthDate: "2020-01-01",
+      adopted: false,
+      owner: null,
+      image: [],
+    };
+
     // Usuario de prueba
     this.mockUser = {
       first_name: "Usuario de prueba 2",
@@ -41,6 +48,11 @@ describe("Testing users Api", function () {
   });
 
   after(async function () {
+    // Limpia la colección de mascotas después de correr los tests
+    await mongoose.connection.collection("pets").deleteMany({
+      name: this.mockPet.name,
+    });
+
     // Limpia la colección de usuarios después de correr los tests
     await mongoose.connection.collection("users").deleteMany({
       email: this.mockUser.email,
@@ -50,7 +62,7 @@ describe("Testing users Api", function () {
     await mongoose.connection.close();
   });
 
-  // Test 01 - Registro de un User
+  //Registro de un User
   it("Test Registro Usuario: Debe poder registrar correctamente un usuario", async function () {
     const { statusCode } = await request
       .post("/api/auth/register")
@@ -59,7 +71,7 @@ describe("Testing users Api", function () {
     expect(statusCode).to.eql(201);
   });
 
-  // Test 02 - Login de un User
+  //Login de un User
   it("Test Login Usuario: Debe poder hacer login correctamente con el usuario registrado previamente y obtener la cookie", async function () {
     const mockLogin = {
       email: this.mockUser.email,
@@ -82,14 +94,33 @@ describe("Testing users Api", function () {
 
   it("debe crear una mascota con imagen", async function () {
     const result = await request
-      .post("/api/pet/withImage")
+      .post("/api/pet/")
       .set("Cookie", `${this.cookie.name}=${this.cookie.value}`)
-      .field("name", "Firulais")
+      .field("name", "Rex")
       .field("specie", "Perro")
       .field("birthDate", "2020-01-01")
       .attach("image", "./test/files/coderDog.jpg");
 
     expect(result.status).to.eql(201);
+    expect(result.body.status).to.eql("success");
+  });
+
+  it("debe crear una mascota", async function () {
+    const result = await request
+      .post("/api/pet/")
+      .set("Cookie", `${this.cookie.name}=${this.cookie.value}`)
+      .field("name", "Ariel")
+      .field("specie", "Gato")
+      .field("birthDate", "2022-01-01");
+
+    expect(result.status).to.eql(201);
+    expect(result.body.status).to.eql("success");
+  });
+
+  it("debe obtener todas las mascotas", async function () {
+    const result = await request.get("/api/pet/all");
+
+    expect(result.status).to.eql(200);
     expect(result.body.status).to.eql("success");
   });
 });
