@@ -27,14 +27,14 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mock
+      app: entregafinalb3
   template:
     metadata:
       labels:
-        app: mock
+        app: entregafinalb3
     spec:
       containers:
-        - name: mock
+        - name: entregafinalb3
           image: dashcamed/entregafinalb3:1.0.0-lts
           ports:
             - containerPort: 8080 # puerto interno
@@ -49,9 +49,9 @@ spec:
           command: ["npm", "run", "start"]
 # commands
 #kubectl apply -f kube-mock.yaml
-#minikube service mock-service --url
-#kubectl logs -f deployment/mock-deployment
-#kubectl get svc mock-service
+#minikube service entregafinalb3-service --url
+#kubectl logs -f deployment/entregafinalb3-deployment
+#kubectl get svc entregafinalb3-service
 #kubectl get pods
 #kubectl delete -f kube-mock.yaml
 
