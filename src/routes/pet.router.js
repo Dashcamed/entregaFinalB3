@@ -17,11 +17,11 @@ export default class PetRouter extends Router {
 
   init() {
     this.get("/all", ["PUBLIC"], getAllPets);
-    this.get("/:uid", ["USER", "ADMIN"], getPetById);
-    this.post("/:uid/imagePet", ["USER", "ADMIN"], addImage);
+    this.get("/:pid", ["USER", "ADMIN"], getPetById);
+    this.post("/:pid/imagePet", ["USER", "ADMIN"], addImage);
     this.post("/withImage", ["USER", "ADMIN"], createPetWithImage);
     this.post("/", ["USER", "ADMIN"], createPet);
-    this.put("/:uid", ["USER", "ADMIN"], updateOnePet);
-    this.delete("/:uid", ["USER", "ADMIN"], deleteOnePet);
+    this.put("/updateOnePet/:pid", ["USER", "ADMIN"], updateOnePet);
+    this.delete("/deleteOnePet/:pid", ["USER", "ADMIN"], deleteOnePet);
   }
 }

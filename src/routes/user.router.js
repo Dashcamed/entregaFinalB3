@@ -5,7 +5,6 @@ import {
   deleteUser,
   addDocument,
 } from "../controllers/user.controller.js";
-import upload from "../config/multer.js";
 import Router from "./class/route.js";
 
 export default class UserRouter extends Router {
@@ -16,18 +15,12 @@ export default class UserRouter extends Router {
 
   init() {
     this.get("/all", ["USER", "ADMIN"], getAllUsers);
-    this.get("/:uid", ["USER", "ADMIN"], getUserById);
-    this.put("/:uid", ["USER", "ADMIN"], updateOneUser);
-    this.delete("/:uid", ["USER", "ADMIN"], deleteUser);
-    this.post(
-      "/:uid/documents",
-      ["USER", "ADMIN"],
-      upload.single("document"),
-      addDocument
-    );
-
     this.get("/current", ["USER", "ADMIN"], (req, res) => {
-      res.send({ status: "success", payload: req.user });
+      res.status(200).send({ status: "success", payload: req.user });
     });
+    this.get("/:uid", ["USER", "ADMIN"], getUserById);
+    this.put("/updateOneUser/:uid", ["USER", "ADMIN"], updateOneUser);
+    this.delete("/deleteOneUser/:uid", ["USER", "ADMIN"], deleteUser);
+    this.post("/uploadDocument/:uid", ["USER", "ADMIN"], addDocument);
   }
 }

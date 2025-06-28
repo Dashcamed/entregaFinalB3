@@ -8,7 +8,8 @@ const swaggerOptions = {
     info: {
       title: "API Adoptme",
       version: "1.0.0",
-      description: "API-Rest Adoptme",
+      description:
+        "API-Rest Adoptme con Swagger, Mongoose y Passport. Se recomienda hacer un inicio de sesión para acceder a las rutas protegidas.",
     },
     components: {
       securitySchemes: {

@@ -37,7 +37,7 @@ export const updateOneUser = async (req, res) => {
       });
     }
     const updatedUser = await userServices.updateOneUser(uid, req.body);
-    res.status(200).send({ status: "success", payload: updatedUser });
+    res.status(201).send({ status: "success", payload: updatedUser });
   } catch (error) {
     console.log(error);
     res
@@ -57,7 +57,7 @@ export const deleteUser = async (req, res) => {
       });
     }
     const deletedUser = await userServices.deleteUser(uid);
-    res.status(200).send({ status: "success", payload: deletedUser });
+    res.status(201).send({ status: "success", payload: deletedUser });
   } catch (error) {
     console.log(error);
     res

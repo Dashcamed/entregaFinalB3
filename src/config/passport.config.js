@@ -22,7 +22,10 @@ const initializePassport = () => {
     "jwt",
     new JwtStrategy(
       {
-        jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]),
+        jwtFromRequest: ExtractJwt.fromExtractors([
+          ExtractJwt.fromAuthHeaderAsBearerToken(),
+          cookieExtractor,
+        ]),
         secretOrKey: JWT_PRIVATE_KEY,
       },
       async (jwt_payload, done) => {
