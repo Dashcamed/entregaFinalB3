@@ -1,4 +1,51 @@
 paths:
+  /api/auth/register:
+    post:
+      summary: Registro de usuario
+      tags:
+        - Usuarios
+      security: []
+      schema:
+        type: object
+        properties:
+          email:
+            type: string
+            example: camilomedina.es@gmail.com
+          password:
+            type: string
+            example: 12345
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+            example:
+              first_name: "Camilo"
+              last_name: "Medina"
+              email: "camilomedina.es@gmail.com"
+              password: "12345"
+      responses:
+        201:
+          description: Registro exitoso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        400:
+          description: Error al registrar usuario
   /api/auth/login:
     post:
       summary: Iniciar sesión
@@ -192,6 +239,8 @@ paths:
             schema:
               type: object
               properties:
+                name:
+                  type: string
                 document:
                   type: string
                   format: binary

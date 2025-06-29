@@ -21,6 +21,11 @@ export default class UserRouter extends Router {
     this.get("/:uid", ["USER", "ADMIN"], getUserById);
     this.put("/updateOneUser/:uid", ["USER", "ADMIN"], updateOneUser);
     this.delete("/deleteOneUser/:uid", ["USER", "ADMIN"], deleteUser);
-    this.post("/uploadDocument/:uid", ["USER", "ADMIN"], addDocument);
+    this.post(
+      "/uploadDocument/:uid",
+      ["USER", "ADMIN"],
+      { multer: "document" },
+      addDocument
+    );
   }
 }

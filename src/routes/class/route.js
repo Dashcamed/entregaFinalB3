@@ -61,37 +61,61 @@ export default class Router {
     );
   }
 
-  post(path, roles, ...callbacks) {
-    this.router.post(
-      path,
+  post(path, roles, ...args) {
+    let multerField = null;
+    let callbacks = args;
+    if (args[0] && typeof args[0] === 'object' && args[0].multer) {
+      multerField = args[0].multer;
+      callbacks = args.slice(1);
+    }
+    const middlewares = [
       middLogg,
       roles[0] === "PUBLIC" ? [] : passportCall("jwt"),
       this.handleRoles(roles),
-      upload.single("image"),
-      this.applyCallbacks(callbacks)
-    );
+    ];
+    if (multerField === 'image' || multerField === 'document') {
+      middlewares.push(upload.single(multerField));
+    }
+    middlewares.push(this.applyCallbacks(callbacks));
+    this.router.post(path, ...middlewares);
   }
 
-  put(path, roles, ...callbacks) {
-    this.router.put(
-      path,
+  put(path, roles, ...args) {
+    let multerField = null;
+    let callbacks = args;
+    if (args[0] && typeof args[0] === 'object' && args[0].multer) {
+      multerField = args[0].multer;
+      callbacks = args.slice(1);
+    }
+    const middlewares = [
       middLogg,
       roles[0] === "PUBLIC" ? [] : passportCall("jwt"),
       this.handleRoles(roles),
-      upload.single("image"),
-      this.applyCallbacks(callbacks)
-    );
+    ];
+    if (multerField === 'image' || multerField === 'document') {
+      middlewares.push(upload.single(multerField));
+    }
+    middlewares.push(this.applyCallbacks(callbacks));
+    this.router.put(path, ...middlewares);
   }
 
-  patch(path, roles, ...callbacks) {
-    this.router.patch(
-      path,
+  patch(path, roles, ...args) {
+    let multerField = null;
+    let callbacks = args;
+    if (args[0] && typeof args[0] === 'object' && args[0].multer) {
+      multerField = args[0].multer;
+      callbacks = args.slice(1);
+    }
+    const middlewares = [
       middLogg,
       roles[0] === "PUBLIC" ? [] : passportCall("jwt"),
       this.handleRoles(roles),
-      upload.single("image"),
-      this.applyCallbacks(callbacks)
-    );
+    ];
+    if (multerField === 'image' || multerField === 'document') {
+      middlewares.push(upload.single(multerField));
+    }
+    middlewares.push(this.applyCallbacks(callbacks));
+    this.router.patch(path, ...middlewares);
   }
 
   delete(path, roles, ...callbacks) {
