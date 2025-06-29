@@ -41,9 +41,17 @@ spec:
           imagePullPolicy: Always
           env:
             - name: MONGO_URL
-              value: "mongodb://host.docker.internal:27017/entregaFinalB3"
+              value: "url de mongo"
             - name: NODE_ENV
               value: "production"
+            - name: COOKIE_SIGN
+              value: "secreto"
+            - name: JWT_PRIVATE_KEY
+              value: "secreto"
+            - name: JWT_EXPIRES_IN
+              value: "50000"
+            - name: FRONTEND_DEV_URL
+              value: "url de frontend"
             - name: PORT
               value: "8080"
           command: ["npm", "run", "start"]
