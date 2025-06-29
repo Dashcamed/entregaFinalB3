@@ -226,8 +226,6 @@ components:
           items:
             type: object
             properties:
-              name:
-                type: string
               reference:
                 type: string
     PetWithImage:

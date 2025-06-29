@@ -15,16 +15,8 @@ export default class AdoptionRouter extends Router {
 
   init() {
     this.post("/createAdoption/:uid/:pid", ["USER", "ADMIN"], createAdoption);
-    this.get(
-      "/getAllAdoptions/all",
-      ["USER", "ADMIN", "PUBLIC"],
-      getAllAdoptions
-    );
-    this.get(
-      "/getOneAdoption/:aid",
-      ["USER", "ADMIN", "PUBLIC"],
-      getOneAdoption
-    );
+    this.get("/all", ["PUBLIC"], getAllAdoptions);
+    this.get("/:aid", ["PUBLIC"], getOneAdoption);
     this.put(
       "/updateOneAdoption/:aid/:uid/:pid",
       ["USER", "ADMIN"],

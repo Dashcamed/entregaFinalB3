@@ -1,0 +1,81 @@
+paths:
+  /api/mock/mockingPets:
+    get:
+      tags:
+        - Mocking
+      summary: Devuelve datos de mascotas mockeados
+      responses:
+        200:
+          description: Devuelve datos de mascotas mockeados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Pet"
+        400:
+          description: Error al obtener datos de mascotas mockeados
+  /api/mock/mockingUsers:
+    get:
+      tags:
+        - Mocking
+      summary: Devuelve datos de usuarios mockeados
+      responses:
+        200:
+          description: Devuelve datos de usuarios mockeados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        400:
+          description: Error al obtener datos de usuarios mockeados
+  /api/mock/generateData:
+    post:
+      tags:
+        - Mocking
+      summary: Genera datos mockeados
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                users:
+                  type: integer
+                pets:
+                  type: integer
+            example:
+              users: 10
+              pets: 10
+      responses:
+        201:
+          description: Datos mockeados generados
+        400:
+          description: Error al generar datos mockeados
+components:
+  schemas:
+    Pet:
+      type: object
+      properties:
+        name:
+          type: string
+        specie:
+          type: string
+        birthDate:
+          type: string
+        adopted:
+          type: boolean
+        owner:
+          type: string
+        image:
+          type: array
+          items:
+            type: object
+            properties:
+              reference:
+                type: string

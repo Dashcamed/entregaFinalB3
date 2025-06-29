@@ -55,8 +55,8 @@ export const getOneAdoption = async (req, res) => {
 
 export const updateOneAdoption = async (req, res) => {
   try {
-    const { aid } = req.params;
-    const adoption = await adoptionService.updateOneAdoption(aid, req.body);
+    const { aid, uid, pid } = req.params;
+    const adoption = await adoptionService.updateOneAdoption(aid, uid, pid);
     return res.status(200).json(adoption);
   } catch (error) {
     return res.status(400).json({ error: error.message });

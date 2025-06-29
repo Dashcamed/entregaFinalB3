@@ -12,8 +12,9 @@ export default class MockingServices {
         last_name: faker.person.lastName(),
         email: faker.internet.email(),
         password: await generateHash("coder123"),
-        role: faker.helpers.arrayElement(["user", "admin"]),
+        role: faker.helpers.arrayElement(["user"]),
         pets: [],
+        document: [],
       };
       users.push(user);
     }
@@ -29,7 +30,7 @@ export default class MockingServices {
         birthDate: faker.date.past().toISOString(),
         adopted: faker.datatype.boolean(),
         owner: null,
-        image: [{ name: faker.image.url(), reference: faker.image.url() }],
+        image: [{ reference: faker.image.url() }],
       };
       pets.push(pet);
     }

@@ -1,0 +1,120 @@
+paths:
+  /api/adoption/createAdoption/{uid}/{pid}:
+    post:
+      tags:
+        - Adopciones
+      summary: Crea una adopcion
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: pid
+          required: true
+          schema:
+            type: string
+      responses:
+        201:
+          description: Adopcion creada
+        400:
+          description: Error al crear adopcion
+  /api/adoption/all:
+    get:
+      tags:
+        - Adopciones
+      summary: Devuelve todas las adopciones
+      responses:
+        200:
+          description: Devuelve todas las adopciones
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Adoption"
+          400:
+            description: Error al obtener adopciones
+  /api/adoption/{aid}:
+    get:
+      tags:
+        - Adopciones
+      summary: Devuelve una adopcion por ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: aid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Devuelve una adopcion por ID
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Adoption"
+        400:
+          description: Error al obtener adopcion
+  /api/adoption/updateOneAdoption/{aid}/{uid}/{pid}:
+    put:
+      tags:
+        - Adopciones
+      summary: Actualiza una adopcion por ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: aid
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: uid
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: pid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Adopcion actualizada
+        400:
+          description: Error al actualizar adopcion
+  /api/adoption/deleteOneAdoption/{aid}:
+    delete:
+      tags:
+        - Adopciones
+      summary: Elimina una adopcion por ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: aid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Adopcion eliminada
+        400:
+          description: Error al eliminar adopcion
+
+components:
+  schemas:
+    Adoption:
+      type: object
+      properties:
+        owner:
+          type: string
+          description: ID del dueño de la mascota
+        pet:
+          type: string
+          description: ID de la mascota
